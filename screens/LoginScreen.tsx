@@ -1,7 +1,12 @@
-import AuthContent from '../components/Auth/AuthContent';
+import AuthContent from "../components/Auth/AuthContent";
+import { Keyboard } from "../components/Auth/Keyboard";
 
 function LoginScreen() {
-  return <AuthContent isLogin />;
+  return (
+    <Keyboard>
+      <AuthContent isLogin />
+    </Keyboard>
+  );
 }
 
 export default LoginScreen;

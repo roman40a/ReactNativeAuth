@@ -1,7 +1,12 @@
-import AuthContent from '../components/Auth/AuthContent';
+import AuthContent from "../components/Auth/AuthContent";
+import { Keyboard } from "../components/Auth/Keyboard";
 
 function SignupScreen() {
-  return <AuthContent />;
+  return (
+    <Keyboard>
+      <AuthContent />
+    </Keyboard>
+  );
 }
 
 export default SignupScreen;
