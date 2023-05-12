@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 
 import FlatButton from "../ui/FlatButton";
@@ -6,7 +6,19 @@ import AuthForm from "./AuthForm";
 import { Colors } from "../../constants/styles";
 import { useAppNavigation } from "../../utils/hooks";
 
-function AuthContent({ isLogin, onAuthenticate }) {
+type TCredentials = {
+  email: string;
+  password: string;
+  confirmEmail: string;
+  confirmPassword: string;
+};
+
+type TAuthData = { email: string; password: string };
+type TAuthContentProps = {
+  isLogin: boolean;
+  onAuthenticate: (authData: TAuthData) => void;
+};
+const AuthContent: FC<TAuthContentProps> = ({ isLogin, onAuthenticate }) => {
   const navigation = useAppNavigation();
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -24,7 +36,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     }
   }
 
-  function submitHandler(credentials) {
+  function submitHandler(credentials: TCredentials) {
     let { email, confirmEmail, password, confirmPassword } = credentials;
 
     email = email.trim();
@@ -66,7 +78,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
       </View>
     </View>
   );
-}
+};
 
 export default AuthContent;
 
