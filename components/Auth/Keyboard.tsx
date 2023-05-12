@@ -7,7 +7,7 @@ type TKeyboardProps = {
 export const Keyboard: FC<TKeyboardProps> = ({ children }) => {
   return (
     <ScrollView style={{ flex: 1 }}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         {children}
       </KeyboardAvoidingView>
     </ScrollView>

@@ -13,7 +13,7 @@ type TCredentials = {
   confirmPassword: string;
 };
 
-type TAuthData = { email: string; password: string };
+export type TAuthData = { email: string; password: string };
 type TAuthContentProps = {
   isLogin: boolean;
   onAuthenticate: (authData: TAuthData) => void;
