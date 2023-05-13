@@ -1,4 +1,5 @@
 import { createContext, FC, ReactElement, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type TAuthData =
   | { token?: undefined; isAuthenticated: false }
@@ -32,11 +33,21 @@ export const AuthContextProvider: FC<TAuthContextProviderProps> = ({
           isAuthenticated: true,
         };
 
-  const authenticate = (token: string) => {
+  const authenticate = async (token: string): Promise<void> => {
     setAuthToken(token);
+    try {
+      await AsyncStorage.setItem("token", token);
+    } catch (e) {
+      console.error(e);
+    }
   };
-  const logout = () => {
+  const logout = async (): Promise<void> => {
     setAuthToken(undefined);
+    try {
+      await AsyncStorage.removeItem("token");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const value: TAuthContext = {
