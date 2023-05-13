@@ -1,25 +1,36 @@
-import { Pressable, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { ReactElement } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { IconProps } from "@expo/vector-icons/build/createIconSet";
 
-function IconButton({ icon, color, size, onPress }) {
+type TName = keyof typeof Ionicons.glyphMap;
+
+type TIconButton<GLYPHS extends TName> = IconProps<GLYPHS>;
+
+export const IconButton = <GLYPHS extends TName>(
+  props: TIconButton<GLYPHS>
+): ReactElement => {
+  const { size, name, color, onPress } = props;
   return (
     <Pressable
-      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
       onPress={onPress}
+      style={({ pressed }) => pressed && styles.pressed}
     >
-      <Ionicons name={icon} color={color} size={size} />
+      <View style={styles.buttonContainer}>
+        <Ionicons name={name} size={size} color={color} />
+      </View>
     </Pressable>
   );
-}
-
-export default IconButton;
+};
 
 const styles = StyleSheet.create({
-  button: {
-    margin: 8,
-    borderRadius: 20,
+  buttonContainer: {
+    borderRadius: 24,
+    padding: 6,
+    marginHorizontal: 8,
+    marginVertical: 2,
   },
   pressed: {
-    opacity: 0.7,
+    opacity: 0.75,
   },
 });

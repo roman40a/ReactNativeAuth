@@ -3,17 +3,24 @@ import { Keyboard } from "../components/Auth/Keyboard";
 import { useState } from "react";
 import { loginUser } from "../utils/auth";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
+import { Alert } from "react-native";
+import { useAuthContext } from "../utils/hooks";
 
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
+  const { authenticate } = useAuthContext();
+
   const loginHandler = async (authData: TAuthData) => {
     try {
       setIsAuthenticating(true);
-      const res = await loginUser(authData);
-      console.log("loginHandler", res);
+      const token = await loginUser(authData);
+      authenticate(token);
     } catch (e) {
-      console.log(e);
+      Alert.alert(
+        "Authentication failed!",
+        "Could not create user, please check your input try again later!"
+      );
     } finally {
       setIsAuthenticating(false);
     }
